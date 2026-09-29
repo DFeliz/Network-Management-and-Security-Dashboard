@@ -1,5 +1,4 @@
 # Network Management and Security Dashboard
-# Network Management and Security Dashboard
 
 ## Sobre o Projeto
 
