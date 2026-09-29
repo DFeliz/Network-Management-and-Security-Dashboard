@@ -354,12 +354,6 @@ O sistema deverá combinar monitorização, gestão e segurança numa interface 
 
 ## Autor
 
-**DFeliz**
+**Diogo Feliz**
 
 Projeto desenvolvido no âmbito da formação em **Programação de Sistemas Informáticos**.
-
----
-
-## Licença
-
-Este projeto encontra-se atualmente em desenvolvimento.
