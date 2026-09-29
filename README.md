@@ -28,7 +28,6 @@ Os principais objetivos do projeto são:
 * Detetar comportamentos potencialmente maliciosos.
 * Proteger a rede contra tentativas de exploração e reconhecimento.
 * Impedir que a rede seja utilizada como servidor, relay ou **exit node de uma VPN**.
-* Manter permitido o uso normal de VPN por utilizadores da rede.
 
 ### Regra relativamente às VPN
 
