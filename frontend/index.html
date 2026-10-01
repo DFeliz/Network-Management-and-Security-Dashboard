@@ -7,26 +7,20 @@
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <header>
-    <h1>Painel de Gestão e Segurança de Rede</h1>
-    <span id="resumo"></span>
-  </header>
+  <h1>Painel de Gestão e Segurança de Rede</h1>
+  <p id="estado_api">A ligar à API...</p>
 
-  <main>
-    <h2>Dispositivos na rede</h2>
-    <table>
-      <thead>
-        <tr>
-          <th>Nome</th>
-          <th>IP</th>
-          <th>Tipo</th>
-          <th>Estado</th>
-          <th>Ação</th>
-        </tr>
-      </thead>
-      <tbody id="tabela-dispositivos"></tbody>
-    </table>
-  </main>
+  <table>
+    <thead>
+      <tr>
+        <th>IP</th>
+        <th>MAC</th>
+        <th>Tipo</th>
+        <th>Estado</th>
+      </tr>
+    </thead>
+    <tbody id="tabela_dispositivos"></tbody>
+  </table>
 
   <script src="app.js"></script>
 </body>
