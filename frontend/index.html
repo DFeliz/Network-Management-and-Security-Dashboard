@@ -3,24 +3,77 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Painel de Gestão e Segurança de Rede</title>
+  <title>Network Management & Security Dashboard</title>
   <link rel="stylesheet" href="style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-  <h1>Painel de Gestão e Segurança de Rede</h1>
-  <p id="estado_api">A ligar à API...</p>
+  <div class="app">
+    <!-- Sidebar -->
+    <aside class="sidebar">
+      <div class="logo">
+        <span class="logo-icon">🛡️</span>
+        <span class="logo-text">NetSecure</span>
+      </div>
+      <nav class="nav">
+        <a href="#" class="nav-item active">
+          <span>📊</span> Dashboard
+        </a>
+        <a href="#" class="nav-item">
+          <span>💻</span> Dispositivos
+        </a>
+        <a href="#" class="nav-item">
+          <span>🔒</span> Segurança
+        </a>
+        <a href="#" class="nav-item">
+          <span>📜</span> Histórico
+        </a>
+        <a href="#" class="nav-item">
+          <span>⚙️</span> Definições
+        </a>
+      </nav>
+    </aside>
 
-  <table>
-    <thead>
-      <tr>
-        <th>IP</th>
-        <th>MAC</th>
-        <th>Tipo</th>
-        <th>Estado</th>
-      </tr>
-    </thead>
-    <tbody id="tabela_dispositivos"></tbody>
-  </table>
+    <!-- Main Content -->
+    <main class="main">
+      <header class="header">
+        <div>
+          <h1>Dispositivos na Rede</h1>
+          <p class="subtitle">Visão geral dos dispositivos ligados</p>
+        </div>
+        <div class="status-badge" id="estado_api">
+          A ligar à API...
+        </div>
+      </header>
+
+      <section class="card">
+        <div class="card-header">
+          <h2>Lista de Dispositivos</h2>
+          <button class="btn-refresh" onclick="carregar_dispositivos()">Atualizar</button>
+        </div>
+
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th>IP</th>
+                <th>MAC</th>
+                <th>Nome</th>
+                <th>Tipo</th>
+                <th>Fabricante</th>
+                <th>Estado</th>
+              </tr>
+            </thead>
+            <tbody id="tabela_dispositivos">
+              <!-- Preenchido via JavaScript -->
+            </tbody>
+          </table>
+        </div>
+      </section>
+    </main>
+  </div>
 
   <script src="app.js"></script>
 </body>
