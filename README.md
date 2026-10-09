@@ -323,15 +323,23 @@ As ações de bloqueio deverão ser realizadas através das ferramentas de firew
 
 O projeto encontra-se atualmente em desenvolvimento.
 
-### Planeado
+### Concluído (Semana 1)
 
 * [x] Criação do repositório
 * [x] Estrutura inicial do projeto
-* [ ] Desenvolvimento do backend
-* [ ] Desenvolvimento da API
-* [ ] Desenvolvimento do dashboard
-* [ ] Descoberta de dispositivos
-* [ ] Base de dados
+* [x] Organização do backend (`api`, `models`, `schemas`, `services`, `core`)
+* [x] `requirements.txt` e ambiente virtual
+* [x] API FastAPI básica com rota `/devices` (dados de teste)
+* [x] Dashboard frontend moderno (sidebar + tabela de dispositivos)
+* [x] Comunicação frontend ↔ backend (CORS + fetch)
+
+### Planeado
+
+* [ ] Desenvolvimento do backend (lógica de negócio)
+* [ ] Desenvolvimento da API (mais endpoints)
+* [ ] Desenvolvimento do dashboard (mais páginas)
+* [ ] Descoberta real de dispositivos (Nmap)
+* [ ] Base de dados (PostgreSQL)
 * [ ] Monitorização de tráfego
 * [ ] Sistema de alertas
 * [ ] Controlo de dispositivos
@@ -340,6 +348,39 @@ O projeto encontra-se atualmente em desenvolvimento.
 * [ ] Proteção contra utilização da rede como VPN
 * [ ] Testes de segurança
 * [ ] Documentação final
+
+---
+
+# Como correr o projeto
+
+### Pré-requisitos
+
+* Python 3.10+ instalado
+* Navegador web
+
+### Backend
+
+```bash
+cd backend
+python -m venv .venv
+
+# Windows
+.venv\Scripts\activate
+
+# Linux / macOS
+source .venv/bin/activate
+
+pip install -r requirements.txt
+uvicorn app.main:app --reload
+```
+
+A API fica disponível em: http://127.0.0.1:8000  
+Documentação automática (Swagger): http://127.0.0.1:8000/docs
+
+### Frontend
+
+Abre a pasta `frontend` com a extensão **Live Server** do VS Code,  
+ou abre diretamente o ficheiro `index.html` no browser.
 
 ---
 
