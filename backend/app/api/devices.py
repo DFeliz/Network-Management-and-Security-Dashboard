@@ -5,7 +5,7 @@ router = APIRouter(
     tags=["Dispositivos"]
 )
 
-devices = [
+dispositivos = [
     {
         "id": 1,
         "ip": "192.168.1.10",
@@ -38,13 +38,13 @@ devices = [
 
 @router.get("/")
 def obter_dispositivos():
-    return devices
+    return dispositivos
 
 
-@router.get("/{device_id}")
-def obter_dispositivo(device_id: int):
-    for device in devices:
-        if device["id"] == device_id:
-            return device
+@router.get("/{id_dispositivo}")
+def obter_dispositivo(id_dispositivo: int):
+    for dispositivo in dispositivos:
+        if dispositivo["id"] == id_dispositivo:
+            return dispositivo
 
     return {"erro": "Dispositivo não encontrado"}
