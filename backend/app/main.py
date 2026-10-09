@@ -1,5 +1,5 @@
 from fastapi import FastAPI
-from app.api.devices import router as devices_router
+from app.api.devices import router as router_dispositivos
 from fastapi.middleware.cors import CORSMiddleware
 
 app = FastAPI(
@@ -15,7 +15,7 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-app.include_router(devices_router)
+app.include_router(router_dispositivos)
 
 @app.get("/")
 def inicio():
