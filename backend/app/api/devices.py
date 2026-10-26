@@ -1,50 +1,33 @@
-from fastapi import APIRouter
+from fastapi import APIRouter, Depends, HTTPException
+from sqlalchemy.orm import Session
+
+from app.core.database import obter_db
+from app.models.dispositivo import Dispositivo
+from app.schemas.dispositivo import DispositivoResposta, DispositivoCriar
 
 router = APIRouter(
     prefix="/devices",
     tags=["Dispositivos"]
 )
 
-dispositivos = [
-    {
-        "id": 1,
-        "ip": "192.168.1.10",
-        "mac": "AA:BB:CC:DD:EE:01",
-        "nome": "PC",
-        "fabricante": "Intel",
-        "tipo": "Computador",
-        "estado": "online"
-    },
-    {
-        "id": 2,
-        "ip": "192.168.1.11",
-        "mac": "AA:BB:CC:DD:EE:02",
-        "nome": "Telemóvel",
-        "fabricante": "Samsung",
-        "tipo": "Telemóvel",
-        "estado": "online"
-    },
-    {
-        "id": 3,
-        "ip": "192.168.1.12",
-        "mac": "AA:BB:CC:DD:EE:03",
-        "nome": "Impressora",
-        "fabricante": "HP",
-        "tipo": "Impressora",
-        "estado": "offline"
-    }
-]
+
+@router.get("/", response_model=list[DispositivoResposta])
+def obter_dispositivos(db: Session = Depends(obter_db)):
+    return db.query(Dispositivo).all()
 
 
-@router.get("/")
-def obter_dispositivos():
-    return dispositivos
+@router.get("/{id_dispositivo}", response_model=DispositivoResposta)
+def obter_dispositivo(id_dispositivo: int, db: Session = Depends(obter_db)):
+    dispositivo = db.query(Dispositivo).filter(Dispositivo.id == id_dispositivo).first()
+    if not dispositivo:
+        raise HTTPException(status_code=404, detail="Dispositivo não encontrado")
+    return dispositivo
 
 
-@router.get("/{id_dispositivo}")
-def obter_dispositivo(id_dispositivo: int):
-    for dispositivo in dispositivos:
-        if dispositivo["id"] == id_dispositivo:
-            return dispositivo
-
-    return {"erro": "Dispositivo não encontrado"}
+@router.post("/", response_model=DispositivoResposta)
+def criar_dispositivo(dados: DispositivoCriar, db: Session = Depends(obter_db)):
+    dispositivo = Dispositivo(**dados.model_dump())
+    db.add(dispositivo)
+    db.commit()
+    db.refresh(dispositivo)
+    return dispositivo
