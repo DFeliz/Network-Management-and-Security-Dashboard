@@ -1,1 +1,3 @@
-# Models (SQLAlchemy) will go here
+from app.models.dispositivo import Dispositivo
+
+__all__ = ["Dispositivo"]
