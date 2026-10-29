@@ -51,8 +51,14 @@
       <section class="card">
         <div class="card-header">
           <h2>Lista de Dispositivos</h2>
-          <button class="btn-refresh" onclick="carregar_dispositivos()">Atualizar</button>
+          <div class="card-acoes">
+            <button class="btn-scan" id="botao_scan" onclick="fazer_scan()">Scan agora</button>
+            <button class="btn-refresh" onclick="carregar_dispositivos()">Atualizar</button>
+          </div>
         </div>
+
+        <!-- Resultado do último scan (fica escondido enquanto estiver vazio) -->
+        <p class="mensagem-scan" id="mensagem_scan"></p>
 
         <div class="table-wrapper">
           <table>

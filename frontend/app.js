@@ -66,6 +66,53 @@ async function carregar_dispositivos() {
   }
 }
 
+function mostrar_mensagem_scan(texto, tipo) {
+  const mensagem_scan = document.getElementById("mensagem_scan");
+  mensagem_scan.textContent = texto;
+  mensagem_scan.className = tipo ? `mensagem-scan ${tipo}` : "mensagem-scan";
+}
+
+async function fazer_scan() {
+  const botao_scan = document.getElementById("botao_scan");
+
+  // Desativa o botão para não lançar dois scans ao mesmo tempo
+  botao_scan.disabled = true;
+  botao_scan.textContent = "A analisar a rede...";
+  mostrar_mensagem_scan("A analisar a rede, isto pode demorar um pouco.", "");
+
+  try {
+    const resposta = await fetch(`${url_api}/devices/scan`, { method: "POST" });
+    const dados = await resposta.json().catch(() => ({}));
+
+    if (!resposta.ok) {
+      // A API explica o problema em "detail" (ex.: falta o REDE_ALVO no .env)
+      const motivo = typeof dados.detail === "string" ? dados.detail : "Erro ao fazer o scan.";
+      throw new Error(motivo);
+    }
+
+    let resumo = `Rede ${dados.rede} · Encontrados: ${dados.encontrados}`
+      + ` · Novos: ${dados.novos}`
+      + ` · Atualizados: ${dados.atualizados}`
+      + ` · Ficaram offline: ${dados.ficaram_offline}`;
+    if (dados.ignorados_sem_mac > 0) {
+      resumo += ` · Sem MAC (ignorados): ${dados.ignorados_sem_mac}`;
+    }
+    mostrar_mensagem_scan(resumo, "sucesso");
+
+    await carregar_dispositivos();
+  } catch (erro) {
+    console.error(erro);
+    // Um TypeError do fetch quer dizer que nem chegou à API (desligada ou bloqueada)
+    const texto_erro = erro instanceof TypeError
+      ? "Não foi possível ligar à API. Confirma que o uvicorn está a correr."
+      : erro.message;
+    mostrar_mensagem_scan(texto_erro, "erro");
+  } finally {
+    botao_scan.disabled = false;
+    botao_scan.textContent = "Scan agora";
+  }
+}
+
 // Carrega ao iniciar
 carregar_dispositivos();
 
